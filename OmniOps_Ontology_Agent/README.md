@@ -62,7 +62,10 @@ Following tier-1 software house and big-tech engineering standards, all architec
 
 | Document | Scope & Purpose |
 | :--- | :--- |
-| [**`OmniOps_Senior_Overview.pdf`**](output/pdf/OmniOps_Senior_Overview.pdf) | **Executive Visual Brief (PDF):** Clean, 5-page senior-friendly overview with custom vector diagrams explaining the concept, `INC-409` demo, safety governance, and 5-phase plan. |
+| [**`Omniops-Overview.pdf`**](output/pdf/Omniops-Overview.pdf) | **Executive Visual Brief (PDF):** Clean, 5-page senior-friendly overview with custom vector diagrams explaining the concept, `INC-409` demo, safety governance, and completed Phase 1–5 verification. |
+| [**`06_SENIOR_DEMO_CHEATSHEET.md`**](docs/06_SENIOR_DEMO_CHEATSHEET.md) | **3-Minute Senior Live Demo Cheat-Sheet:** Step-by-step UI & MCP walkthrough (`INC-409`), approval flow, and Top 4 technical Q&A talking points. |
+| [**`PHASE_1_TO_5_VERIFICATION.md`**](docs/PHASE_1_TO_5_VERIFICATION.md) | **Phase 1–5 Automated & Visual Verification Report:** Consolidated QA report (`45/45` tests passing across 23 diagnostic classes) and Apple Liquid Glass UI checks. |
+| [**`LIVE_PROVIDER_CHECK.md`**](docs/LIVE_PROVIDER_CHECK.md) | **Live Cloud Provider Verification:** Real Gemini (`gemini-3.5-flash-lite`) & Groq (`openai/gpt-oss-20b`) benchmark results on `INC-409` without key leakage. |
 | [**`00_EXECUTIVE_SUMMARY_PRD.md`**](docs/00_EXECUTIVE_SUMMARY_PRD.md) | **Product Requirements Document (PRD):** Business problem, target personas, user stories, functional requirements (`FR-01`..`FR-15`), non-functional SLOs, and KPI metrics. |
 | [**`01_SYSTEM_ARCHITECTURE_RFC.md`**](docs/01_SYSTEM_ARCHITECTURE_RFC.md) | **System Architecture RFC:** 4-tier layered design, sequence diagrams, data flow contracts, security boundaries, and resilient LLM provider fallback design. |
 | [**`02_ONTOLOGY_SPECIFICATION.md`**](docs/02_ONTOLOGY_SPECIFICATION.md) | **Formal Ontology Specification:** Complete schema definitions for all Object Types, Properties, Link Types, Action Types, Auto-Ontology certification rules, and Cedar policy definitions. |
@@ -75,6 +78,26 @@ Following tier-1 software house and big-tech engineering standards, all architec
 | [**`adr/ADR-003-mcp-protocol-boundary.md`**](docs/adr/ADR-003-mcp-protocol-boundary.md) | **ADR-003:** Decoupling the Ontology Layer from agent harnesses via the Model Context Protocol (MCP). |
 
 **Project Management Tracking:** All 6 Workstreams (`OO-1`, `OO-3`..`OO-7`) and 32 atomic Tasks (`OO-2`, `OO-8`..`OO-38`) are tracked in Jira project **`OO` (Omni-ops)** (`https://abubakariqbal651.atlassian.net`). See [`.env.example`](.env.example) for required environment keys.
+
+---
+
+## Quickstart
+
+Run all commands from `/home/bakar/Documents/Internships/NETSOL/OmniOps_Ontology_Agent/`:
+
+- **Launch Operations Center Web UI & API:**
+  ```bash
+  python3 run.py
+  # Open http://127.0.0.1:4320/
+  ```
+- **Run Complete Phase 1–5 Test Suite (`45` tests):**
+  ```bash
+  ../.venv/bin/python -m unittest discover -s tests -p "test_phase*.py" -v
+  ```
+- **Run Standalone MCP Server (`stdio` JSON-RPC 2.0):**
+  ```bash
+  ../.venv/bin/python -m omniops.mcp.server
+  ```
 
 ---
 

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniOps Ontology Agent — Operations Center</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="ambient-backdrop" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <!-- Floating Apple Glass Top Navigation -->
+    <header class="topbar glass-bar squircle-xl">
+      <div class="brand">
+        <div class="brand-mark squircle-md">OO</div>
+        <div>
+          <h1 class="brand-title">OmniOps Ontology Agent</h1>
+          <p class="brand-sub" id="provider-subtitle">Palantir Semantic/Kinetic • Auto-Ontology • Omnigraph • MCP</p>
+        </div>
+      </div>
+
+      <nav class="segmented-control squircle-md" role="tablist" aria-label="Operations Center Views">
+        <button class="seg-btn squircle-sm" role="tab" aria-selected="true" data-tab="operations">
+          Operations
+        </button>
+        <button class="seg-btn squircle-sm" role="tab" aria-selected="false" data-tab="inbox">
+          Approval Inbox
+          <span id="inbox-badge" class="count-pill">0</span>
+        </button>
+        <button class="seg-btn squircle-sm" role="tab" aria-selected="false" data-tab="ontology">
+          Auto-Ontology
+        </button>
+      </nav>
+
+      <div class="topbar-actions">
+        <button id="theme-toggle" class="glass-btn squircle-sm" type="button" title="Toggle Dark/Light Glass">
+          Light Glass
+        </button>
+        <button id="reset-btn" class="glass-btn squircle-sm" type="button">
+          Reset Demo
+        </button>
+      </div>
+    </header>
+
+    <!-- Live Telemetry KPI Strip -->
+    <section class="kpi-strip" aria-label="Platform Health Summary">
+      <article class="glass-panel kpi-card squircle-lg">
+        <div>
+          <div class="kpi-label">Service Fleet Health</div>
+          <div class="kpi-value" id="kpi-services">—</div>
+          <div class="kpi-meta" id="kpi-services-meta">Loading topology...</div>
+        </div>
+        <span id="kpi-services-dot" class="status-dot dot-crit"></span>
+      </article>
+
+      <article class="glass-panel kpi-card squircle-lg">
+        <div>
+          <div class="kpi-label">Active Incidents</div>
+          <div class="kpi-value" id="kpi-incidents">—</div>
+          <div class="kpi-meta" id="kpi-incidents-meta">Golden Scenarios ready</div>
+        </div>
+        <span id="kpi-incidents-dot" class="status-dot dot-warn"></span>
+      </article>
+
+      <article class="glass-panel kpi-card squircle-lg">
+        <div>
+          <div class="kpi-label">Omnigraph Pending Branches</div>
+          <div class="kpi-value" id="kpi-branches">0</div>
+          <div class="kpi-meta">Cedar-gated for HumanSRE</div>
+        </div>
+        <span class="status-dot dot-warn"></span>
+      </article>
+
+      <article class="glass-panel kpi-card squircle-lg">
+        <div>
+          <div class="kpi-label">Certified Ontology Objects</div>
+          <div class="kpi-value" id="kpi-ontology">—</div>
+          <div class="kpi-meta" id="kpi-ontology-meta">Auto-Ontology Gate</div>
+        </div>
+        <span class="status-dot dot-ok"></span>
+      </article>
+    </section>
+
+    <!-- TAB 1: OPERATIONS WORKSPACE -->
+    <section id="tab-operations" class="tab-panel" role="tabpanel">
+      <div class="ops-grid">
+        <!-- Left: Interactive 60% Squircle SVG Topology -->
+        <div class="glass-panel panel squircle-xl">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Live Service Topology &amp; Blast Radius</h2>
+              <p class="panel-sub">Click any microservice node to trace its upstream P0/P1 blast radius and downstream database pressure.</p>
+            </div>
+            <span id="topology-branch-pill" class="badge badge-accent">branch: main</span>
+          </div>
+
+          <div class="topology-wrap squircle-lg">
+            <svg id="topology-svg" viewBox="0 0 760 410" role="img" aria-label="Microservice dependency and blast radius graph"></svg>
+            <div class="legend-row">
+              <span class="legend-item"><span class="status-dot dot-crit"></span> Critical / Root Failure</span>
+              <span class="legend-item"><span class="status-dot dot-warn"></span> Degraded / Blast Radius</span>
+              <span class="legend-item"><span class="status-dot dot-ok"></span> Healthy</span>
+            </div>
+          </div>
+
+          <div id="node-inspector" class="inset-card node-inspector">
+            <div class="kpi-label">Selected Node Inspector</div>
+            <div id="node-inspector-body" class="kpi-meta">Click a service node above (for example, <b>PaymentGatewayService</b>) to inspect live blast radius metrics.</div>
+          </div>
+        </div>
+
+        <!-- Right: SRE Investigation Console & Live MCP Trace -->
+        <div class="glass-panel panel squircle-xl">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">SRE Investigation Agent</h2>
+              <p class="panel-sub">Grounds every diagnosis via MCP Tools + Anti-Hallucination Evidence Gate.</p>
+            </div>
+            <span id="provider-pill" class="badge badge-ok">Ready</span>
+          </div>
+
+          <div class="scenario-row">
+            <button class="scenario-chip squircle-sm sev1" type="button" data-incident="INC-409">
+              INC-409: Payment 500s
+            </button>
+            <button class="scenario-chip squircle-sm" type="button" data-incident="INC-512">
+              INC-512: Fraud Latency
+            </button>
+            <button class="scenario-chip squircle-sm" type="button" data-incident="INC-601">
+              INC-601: Redis Saturation
+            </button>
+            <button class="scenario-chip squircle-sm" type="button" data-question="What was the office Wi-Fi packet loss on Floor-3?">
+              Test Draft Gate (Wi-Fi)
+            </button>
+          </div>
+
+          <form id="investigate-form" class="prompt-shell squircle-lg">
+            <textarea
+              id="question-input"
+              class="prompt-input"
+              placeholder="Ask about any incident, blast radius, or PR regression (e.g. Analyze INC-409, trace blast radius, and stage a safe fix)..."
+            ></textarea>
+            <div class="prompt-footer">
+              <label class="toggle-label">
+                <input id="prefer-offline" type="checkbox" />
+                Deterministic Graph Reasoner (zero external API)
+              </label>
+              <button id="investigate-btn" class="glass-btn primary squircle-sm" type="submit">
+                Run MCP Investigation
+              </button>
+            </div>
+          </form>
+
+          <div id="report-card" class="inset-card">
+            <div class="panel-header" style="margin-bottom:6px;">
+              <span class="kpi-label" style="margin:0;">Investigation Report</span>
+              <span id="report-status-badge" class="badge badge-accent">Awaiting Query</span>
+            </div>
+            <div id="report-body" class="kpi-meta">
+              Select a Golden Incident above or type a question to launch the 5-step MCP Ontology runbook.
+            </div>
+          </div>
+
+          <div class="inset-card" style="margin-top:12px;">
+            <div class="panel-header" style="margin-bottom:4px;">
+              <span class="kpi-label" style="margin:0;">Live MCP Tool Waterfall</span>
+              <span id="trace-count" class="mono">0 calls</span>
+            </div>
+            <div id="trace-list" class="trace-list">
+              <div class="kpi-meta">Tool calls and latencies appear here after each investigation.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: OMNIGRAPH APPROVAL INBOX -->
+    <section id="tab-inbox" class="tab-panel" role="tabpanel" hidden>
+      <div class="inbox-grid">
+        <div class="glass-panel panel squircle-xl">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Human-in-the-Loop Approval Inbox</h2>
+              <p class="panel-sub">Review isolated Omnigraph <span class="mono">incident/*</span> branches staged by the Agent before merging to <span class="mono">main</span>.</p>
+            </div>
+          </div>
+          <div id="branches-container">
+            <div class="inset-card kpi-meta">No pending branches yet. Run an incident investigation to stage a governed rollback.</div>
+          </div>
+        </div>
+
+        <div class="glass-panel panel squircle-xl">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Omnigraph Commit Audit Log</h2>
+              <p class="panel-sub">Immutable SHA-256 commit trail across branches and human approvals.</p>
+            </div>
+          </div>
+          <div id="commits-container" class="trace-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: AUTO-ONTOLOGY EXPLORER -->
+    <section id="tab-ontology" class="tab-panel" role="tabpanel" hidden>
+      <div class="glass-panel panel squircle-xl" style="margin-bottom:16px;">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Auto-Ontology Draft Discoveries (Certification Gate)</h2>
+            <p class="panel-sub">Tables discovered from SQLite that remain blocked in <span class="mono">DRAFT</span> until certified by an SME.</p>
+          </div>
+        </div>
+        <div id="drafts-container" class="schema-grid"></div>
+      </div>
+
+      <div class="glass-panel panel squircle-xl">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Certified Palantir Semantic &amp; Kinetic Catalog</h2>
+            <p class="panel-sub">Typed ObjectTypes, directed LinkTypes, Certified Metrics, and Kinetic Actions exposed via MCP.</p>
+          </div>
+        </div>
+        <div id="certified-container" class="schema-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Native Glass Modal for Confirming Merge to Main -->
+  <dialog id="merge-dialog" class="modal-glass squircle-xl">
+    <form method="dialog" id="merge-form">
+      <h2 class="panel-title" style="margin-bottom:4px;">Approve &amp; Merge Branch to Production</h2>
+      <p class="panel-sub" id="merge-dialog-subtitle" style="margin-bottom:14px;">Confirm 3-way merge onto main.</p>
+
+      <div class="field-group">
+        <label for="approver-input">Approving Human SRE</label>
+        <input id="approver-input" class="field-input squircle-sm" type="text" value="senior.sre@netsol.example" required />
+      </div>
+      <div class="field-group">
+        <label for="approval-note-input">Audit Justification Note</label>
+        <input id="approval-note-input" class="field-input squircle-sm" type="text" value="Verified blast radius and PR correlation; approved rollback." required />
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+        <button id="merge-cancel-btn" class="glass-btn squircle-sm" type="button">Cancel</button>
+        <button id="merge-confirm-btn" class="glass-btn primary squircle-sm" type="submit">Confirm 3-Way Merge</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>

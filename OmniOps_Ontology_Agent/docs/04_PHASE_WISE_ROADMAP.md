@@ -46,7 +46,7 @@ flowchart LR
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `P0-T1` | `OO-2` | **PRD, Architecture RFC & Ontology Spec**<br>`docs/00..02_*.md` | User & reference specs $\rightarrow$ Formal PRD, 4-tier RFC, and Object/Link/Action schema | Mismatched entity names, link cardinality, or Cedar policy rules trace here | `test -s docs/00_EXECUTIVE_SUMMARY_PRD.md && test -s docs/01_SYSTEM_ARCHITECTURE_RFC.md && test -s docs/02_ONTOLOGY_SPECIFICATION.md` |
 | `P0-T2` | `OO-8` | **MCP Contract, Roadmap, QA Plan & ADRs**<br>`docs/03..05_*.md`, `docs/adr/*` | Architecture RFC $\rightarrow$ JSON-RPC MCP schema, 32-task WBS, Golden Benchmarks, ADRs | Discrepancies in MCP tool payloads, WBS boundaries, or benchmark specs | `ls -la docs docs/adr` |
-| `P0-T3` | `OO-9` | **Visual Senior Executive Overview PDF**<br>`docs/build_senior_overview_pdf.py`, `output/pdf/OmniOps_Senior_Overview.pdf` | Enterprise specs $\rightarrow$ Crisp 5-page A4 executive PDF with inline vector SVGs | PDF page overflow, Chrome rendering error, or clipped SVG labels | `python3 docs/build_senior_overview_pdf.py && pdfinfo output/pdf/OmniOps_Senior_Overview.pdf` |
+| `P0-T3` | `OO-9` | **Visual Senior Executive Overview PDF**<br>`docs/build_senior_overview_pdf.py`, `output/pdf/Omniops-Overview.pdf` | Enterprise specs $\rightarrow$ Crisp 5-page A4 executive PDF with inline vector SVGs | PDF page overflow, Chrome rendering error, or clipped SVG labels | `python3 docs/build_senior_overview_pdf.py && pdfinfo output/pdf/Omniops-Overview.pdf` |
 | `P0-T4` | `OO-10` | **Jira Board (`OO`) Alignment**<br>`docs/04_PHASE_WISE_ROADMAP.md`, Jira `OO` | 32-task WBS $\rightarrow$ Synced Workstreams (`OO-1,3..7`) & Tasks (`OO-2,8..38`) | Missing Jira keys, broken parent links, or stale Jira statuses | `JQL: project = OO ORDER BY key ASC` |
 
 ---
@@ -114,7 +114,32 @@ flowchart LR
 
 ---
 
-## 4. Enterprise Risk Register & Mitigations
+## 4. Mini-Task (`Sub-task`) Decomposition for Phases 3, 4 & 5
+
+Every Task in Phases 3–5 is further split into **2 granular Sub-tasks** in Jira **`OO`** (`OO-39`..`OO-70`) for fine-grained progress tracking and diagnostic isolation:
+
+| Phase | Parent Task | Mini-Task ID | Jira Key | Deliverable Focus |
+| :--- | :--- | :--- | :--- | :--- |
+| Phase 3 (`OO-5`) | `OO-23` (`P3-T1`) | `P3-T1a` / `P3-T1b` | `OO-39` / `OO-40` | Static `ontology://` resource URIs & catalog / Dynamic branch diff URI template & errors |
+| Phase 3 (`OO-5`) | `OO-24` (`P3-T2`) | `P3-T2a` / `P3-T2b` | `OO-41` / `OO-42` | 5 read/analysis MCP tools + schemas / 2 governed mutation tools + latency telemetry |
+| Phase 3 (`OO-5`) | `OO-25` (`P3-T3`) | `P3-T3a` / `P3-T3b` | `OO-43` / `OO-44` | `sre_root_cause_runbook` prompt / `pr_blast_radius_gate` prompt & validation |
+| Phase 3 (`OO-5`) | `OO-26` (`P3-T4`) | `P3-T4a` / `P3-T4b` | `OO-45` / `OO-46` | JSON-RPC 2.0 dispatcher & error codes / Seeded server factory & stdio transport |
+| Phase 3 (`OO-5`) | `OO-27` (`P3-T5`) | `P3-T5a` / `P3-T5b` | `OO-47` / `OO-48` | Resource/Tool/Prompt unit tests / JSON-RPC 2.0 & E2E branch workflow tests |
+| Phase 4 (`OO-6`) | `OO-28` (`P4-T1`) | `P4-T1a` / `P4-T1b` | `OO-49` / `OO-50` | Zero-leak `.env` parser & `Settings` / Port/Jira validation & `repr` redaction |
+| Phase 4 (`OO-6`) | `OO-29` (`P4-T2`) | `P4-T2a` / `P4-T2b` | `OO-51` / `OO-52` | Gemini & Groq/OpenRouter async adapters / Offline deterministic Reasoner & key redaction |
+| Phase 4 (`OO-6`) | `OO-30` (`P4-T3`) | `P4-T3a` / `P4-T3b` | `OO-53` / `OO-54` | System instructions & runbook prompts / `InvestigationReport` Pydantic output schema |
+| Phase 4 (`OO-6`) | `OO-31` (`P4-T4`) | `P4-T4a` / `P4-T4b` | `OO-55` / `OO-56` | Entity ID regex extractor / Trace cross-verifier & corrective retry hook |
+| Phase 4 (`OO-6`) | `OO-32` (`P4-T5`) | `P4-T5a` / `P4-T5b` | `OO-57` / `OO-58` | 5-step MCP tool orchestrator / Branch staging & report assembly pipeline |
+| Phase 4 (`OO-6`) | `OO-33` (`P4-T6`) | `P4-T6a` / `P4-T6b` | `OO-59` / `OO-60` | Golden Incidents accuracy tests / Failover cascade & hallucination rejection tests |
+| Phase 5 (`OO-7`) | `OO-34` (`P5-T1`) | `P5-T1a` / `P5-T1b` | `OO-61` / `OO-62` | FastAPI REST routes / `/api/mcp` JSON-RPC, `runtime.py`, `run.py` & requirements |
+| Phase 5 (`OO-7`) | `OO-35` (`P5-T2`) | `P5-T2a` / `P5-T2b` | `OO-63` / `OO-64` | Operations Center HTML/CSS & schema explorer / Interactive SVG topology & blast radius |
+| Phase 5 (`OO-7`) | `OO-36` (`P5-T3`) | `P5-T3a` / `P5-T3b` | `OO-65` / `OO-66` | Incident trigger & custom prompt console / Live MCP tool waterfall & Evidence cards |
+| Phase 5 (`OO-7`) | `OO-37` (`P5-T4`) | `P5-T4a` / `P5-T4b` | `OO-67` / `OO-68` | Staged branch diff & Cedar badges / Approve & Merge / Reject with live SVG refresh |
+| Phase 5 (`OO-7`) | `OO-38` (`P5-T5`) | `P5-T5a` / `P5-T5b` | `OO-69` / `OO-70` | Full-stack HTTP E2E regression tests / Final QA Verification Report |
+
+---
+
+## 5. Enterprise Risk Register & Mitigations
 
 | Risk ID | Risk Description | Likelihood | Impact | Mitigation Strategy |
 | :--- | :--- | :--- | :--- | :--- |
